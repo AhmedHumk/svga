@@ -22,6 +22,7 @@ import java.util.zip.ZipInputStream
 private var fileLock: Int = 0
 private var isUnzipping = false
 
+@Suppress("FORBIDDEN_SYNCHRONIZED_BY_VALUE_CLASSES_OR_PRIMITIVES")
 class SVGAParser(context: Context?) {
     private var mContext = context?.applicationContext
 

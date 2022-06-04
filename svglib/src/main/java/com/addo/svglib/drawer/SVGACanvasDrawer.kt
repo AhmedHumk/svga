@@ -1,5 +1,8 @@
+@file:Suppress("NAME_SHADOWING")
+
 package com.addo.svglib.drawer
 
+import android.annotation.SuppressLint
 import android.graphics.*
 import android.os.Build
 import android.text.StaticLayout
@@ -9,10 +12,6 @@ import com.addo.svglib.SVGADynamicEntity
 import com.addo.svglib.SVGASoundManager
 import com.addo.svglib.SVGAVideoEntity
 import com.addo.svglib.entities.SVGAVideoShapeEntity
-
-/**
- * Created by cuiminghui on 2017/3/29.
- */
 
 internal class SVGACanvasDrawer(videoItem: SVGAVideoEntity, val dynamicItem: SVGADynamicEntity) : SGVADrawer(videoItem) {
 
@@ -29,7 +28,7 @@ internal class SVGACanvasDrawer(videoItem: SVGAVideoEntity, val dynamicItem: SVG
         this.pathCache.onSizeChanged(canvas)
         val sprites = requestFrameSprites(frameIndex)
         // Filter null sprites
-        if (sprites.count() <= 0) return
+        if (sprites.isEmpty()) return
         val matteSprites = mutableMapOf<String, SVGADrawerSprite>()
         var saveID = -1
         beginIndexList = null
@@ -102,7 +101,7 @@ internal class SVGACanvasDrawer(videoItem: SVGAVideoEntity, val dynamicItem: SVG
                 }
                 svgaDrawerSprite.matteKey?.let {
                     if (it.length > 0) {
-                        sprites.get(index - 1)?.let { lastSprite ->
+                        sprites.get(index - 1).let { lastSprite ->
                             if (lastSprite.matteKey.isNullOrEmpty()) {
                                 boolArray[index] = true
                             } else {
@@ -136,7 +135,7 @@ internal class SVGACanvasDrawer(videoItem: SVGAVideoEntity, val dynamicItem: SVG
                         if (index == sprites.count() - 1) {
                             boolArray[index] = true
                         } else {
-                            sprites.get(index + 1)?.let { nextSprite ->
+                            sprites.get(index + 1).let { nextSprite ->
                                 if (nextSprite.matteKey.isNullOrEmpty()) {
                                     boolArray[index] = true
                                 } else {
@@ -242,6 +241,7 @@ internal class SVGACanvasDrawer(videoItem: SVGAVideoEntity, val dynamicItem: SVG
         drawTextOnBitmap(canvas, drawingBitmap, sprite, frameMatrix)
     }
 
+    @SuppressLint("DiscouragedPrivateApi")
     private fun drawTextOnBitmap(canvas: Canvas, drawingBitmap: Bitmap, sprite: SVGADrawerSprite, frameMatrix: Matrix) {
         if (dynamicItem.isTextDirty) {
             this.drawTextCache.clear()
@@ -258,11 +258,11 @@ internal class SVGACanvasDrawer(videoItem: SVGAVideoEntity, val dynamicItem: SVG
                     val drawRect = Rect(0, 0, drawingBitmap.width, drawingBitmap.height)
                     val textCanvas = Canvas(textBitmap!!)
                     drawingTextPaint.isAntiAlias = true
-                    val fontMetrics = drawingTextPaint.getFontMetrics();
+                    val fontMetrics = drawingTextPaint.fontMetrics
                     val top = fontMetrics.top
                     val bottom = fontMetrics.bottom
                     val baseLineY = drawRect.centerY() - top / 2 - bottom / 2
-                    textCanvas.drawText(drawingText, drawRect.centerX().toFloat(), baseLineY, drawingTextPaint);
+                    textCanvas.drawText(drawingText, drawRect.centerX().toFloat(), baseLineY, drawingTextPaint)
                     drawTextCache.put(imageKey, textBitmap as Bitmap)
                 }
             }
@@ -511,7 +511,7 @@ internal class SVGACanvasDrawer(videoItem: SVGAVideoEntity, val dynamicItem: SVG
         }
 
         fun shareMattePaint(): Paint {
-            shareMattePaint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.DST_IN))
+            shareMattePaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_IN)
             return shareMattePaint
         }
 

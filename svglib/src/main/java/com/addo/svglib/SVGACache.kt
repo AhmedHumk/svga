@@ -6,9 +6,7 @@ import java.io.File
 import java.net.URL
 import java.security.MessageDigest
 
-/**
- * SVGA 缓存管理
- */
+
 object SVGACache {
     enum class Type {
         DEFAULT,
@@ -41,9 +39,7 @@ object SVGACache {
         this.type = type
     }
 
-    /**
-     * 清理缓存
-     */
+
     fun clearCache() {
         if (!isInitialized()) {
             LogUtils.error(TAG, "SVGACache is not init!")

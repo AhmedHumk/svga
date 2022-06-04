@@ -2,10 +2,6 @@ package com.addo.svglib.bitmap
 
 import android.graphics.BitmapFactory
 
-/**
- *
- * Create by im_dsd 2020/7/7 17:59
- */
 internal object BitmapSampleSizeCalculator {
 
     fun calculate(options: BitmapFactory.Options, reqWidth: Int, reqHeight: Int): Int {

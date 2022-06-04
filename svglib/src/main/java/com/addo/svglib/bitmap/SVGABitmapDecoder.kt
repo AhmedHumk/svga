@@ -3,13 +3,7 @@ package com.addo.svglib.bitmap
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 
-/**
- * Bitmap 解码器
- *
- * <T> 需要加载的数据类型
- *
- * Create by im_dsd 2020/7/7 17:39
- */
+
 internal abstract class SVGABitmapDecoder<T> {
 
     fun decodeBitmapFrom(data: T, reqWidth: Int, reqHeight: Int): Bitmap? {

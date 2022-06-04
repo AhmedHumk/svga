@@ -2,6 +2,8 @@
 // Source file: svga.proto at 123:1
 package com.addo.svglib.proto;
 
+import androidx.annotation.NonNull;
+
 import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
@@ -126,6 +128,7 @@ public final class MovieEntity extends Message<MovieEntity, MovieEntity.Builder>
     return result;
   }
 
+  @NonNull
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();

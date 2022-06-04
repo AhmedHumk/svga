@@ -2,9 +2,7 @@ package com.addo.svglib
 
 import android.graphics.Bitmap
 import android.media.AudioAttributes
-import android.media.AudioManager
 import android.media.SoundPool
-import android.os.Build
 import com.addo.svglib.bitmap.SVGABitmapByteArrayDecoder
 import com.addo.svglib.bitmap.SVGABitmapFileDecoder
 import com.addo.svglib.entities.SVGAAudioEntity
@@ -253,7 +251,7 @@ class SVGAVideoEntity {
     private fun generateAudioFileMap(entity: MovieEntity): HashMap<String, File> {
         val audiosDataMap = generateAudioMap(entity)
         val audiosFileMap = HashMap<String, File>()
-        if (audiosDataMap.count() > 0) {
+        if (audiosDataMap.isNotEmpty()) {
             audiosDataMap.forEach {
                 val audioCache = SVGACache.buildAudioFile(it.key)
                 audiosFileMap[it.key] =
@@ -314,16 +312,14 @@ class SVGAVideoEntity {
 
     private fun generateSoundPool(entity: MovieEntity): SoundPool? {
         return try {
-            if (Build.VERSION.SDK_INT >= 21) {
+
                 val attributes = AudioAttributes.Builder()
                         .setUsage(AudioAttributes.USAGE_MEDIA)
                         .build()
                 SoundPool.Builder().setAudioAttributes(attributes)
                         .setMaxStreams(12.coerceAtMost(entity.audios.count()))
                         .build()
-            } else {
-                SoundPool(12.coerceAtMost(entity.audios.count()), AudioManager.STREAM_MUSIC, 0)
-            }
+
         } catch (e: Exception) {
             LogUtils.error(TAG, e)
             null
