@@ -15,10 +15,6 @@ import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.zip.Inflater
 import java.util.zip.ZipInputStream
-
-/**
- * Created by PonyCui 16/6/18.
- */
 private var fileLock: Int = 0
 private var isUnzipping = false
 
@@ -226,14 +222,15 @@ class SVGAParser(context: Context?) {
                             LogUtils.info(TAG, "inflate start")
                             inflate(bytes)?.let {
                                 LogUtils.info(TAG, "inflate complete")
+                                val movieEntity = MovieEntity.ADAPTER.decode(it)
                                 val videoItem = SVGAVideoEntity(
-                                    MovieEntity.ADAPTER.decode(it),
+                                    movieEntity,
                                     File(cacheKey),
                                     mFrameWidth,
                                     mFrameHeight
                                 )
                                 LogUtils.info(TAG, "SVGAVideoEntity prepare start")
-                                videoItem.prepare({
+                                videoItem.prepare(movieEntity,{
                                     LogUtils.info(TAG, "SVGAVideoEntity prepare success")
                                     this.invokeCompleteCallback(videoItem, callback, alias)
                                 },playCallback)
@@ -308,14 +305,15 @@ class SVGAParser(context: Context?) {
                         LogUtils.info(TAG, "inflate start")
                         inflate(bytes)?.let {
                             LogUtils.info(TAG, "inflate complete")
+                            val movieEntity = MovieEntity.ADAPTER.decode(it)
                             val videoItem = SVGAVideoEntity(
-                                    MovieEntity.ADAPTER.decode(it),
-                                    File(cacheKey),
-                                    mFrameWidth,
-                                    mFrameHeight
+                                movieEntity,
+                                File(cacheKey),
+                                mFrameWidth,
+                                mFrameHeight
                             )
                             LogUtils.info(TAG, "SVGAVideoEntity prepare start")
-                            videoItem.prepare({
+                            videoItem.prepare(movieEntity,{
                                 LogUtils.info(TAG, "SVGAVideoEntity prepare success")
                                 this.invokeCompleteCallback(videoItem, callback, alias)
                             },playCallback)
