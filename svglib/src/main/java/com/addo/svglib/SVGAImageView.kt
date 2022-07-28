@@ -18,7 +18,6 @@ import java.net.URL
 /**
  * Created by PonyCui on 2017/3/29.
  */
-@SuppressLint("AppCompatCustomView")
 open class SVGAImageView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
@@ -58,14 +57,16 @@ open class SVGAImageView @JvmOverloads constructor(
     private var mEndFrame = 0
 
     init {
-        this.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            this.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+        }
         attrs?.let { loadAttrs(it) }
     }
 
     private fun loadAttrs(attrs: AttributeSet) {
         val typedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.SVGAImageView, 0, 0)
         loops = typedArray.getInt(R.styleable.SVGAImageView_loopCount, 0)
-        clearsAfterDetached = typedArray.getBoolean(R.styleable.SVGAImageView_clearsAfterStop, false)
+        clearsAfterStop = typedArray.getBoolean(R.styleable.SVGAImageView_clearsAfterStop, false)
         clearsAfterDetached = typedArray.getBoolean(R.styleable.SVGAImageView_clearsAfterDetached, false)
         mAntiAlias = typedArray.getBoolean(R.styleable.SVGAImageView_antiAlias, true)
         mAutoPlay = typedArray.getBoolean(R.styleable.SVGAImageView_autoPlay, true)
@@ -221,7 +222,7 @@ open class SVGAImageView @JvmOverloads constructor(
     }
 
     fun stopAnimation() {
-        stopAnimation(clear = clearsAfterDetached)
+        stopAnimation(clear = clearsAfterStop)
     }
 
     fun stopAnimation(clear: Boolean) {

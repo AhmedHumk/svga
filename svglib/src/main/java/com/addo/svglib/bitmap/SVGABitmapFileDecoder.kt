@@ -2,7 +2,13 @@ package com.addo.svglib.bitmap
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import com.addo.svglib.bitmap.SVGABitmapDecoder
 
+/**
+ * 通过文件解码 Bitmap
+ *
+ * Create by im_dsd 2020/7/7 17:50
+ */
 internal object SVGABitmapFileDecoder : SVGABitmapDecoder<String>() {
 
     override fun onDecode(data: String, ops: BitmapFactory.Options): Bitmap? {

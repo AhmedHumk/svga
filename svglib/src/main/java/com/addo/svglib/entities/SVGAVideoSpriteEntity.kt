@@ -3,6 +3,9 @@ package com.addo.svglib.entities
 import com.addo.svglib.proto.SpriteEntity
 import org.json.JSONObject
 
+/**
+ * Created by cuiminghui on 2016/10/17.
+ */
 internal class SVGAVideoSpriteEntity {
 
     val imageKey: String?

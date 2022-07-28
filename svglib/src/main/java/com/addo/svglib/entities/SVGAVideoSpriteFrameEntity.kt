@@ -6,6 +6,9 @@ import com.addo.svglib.utils.SVGARect
 
 import org.json.JSONObject
 
+/**
+ * Created by cuiminghui on 2016/10/17.
+ */
 internal class SVGAVideoSpriteFrameEntity {
 
     var alpha: Double
@@ -38,7 +41,7 @@ internal class SVGAVideoSpriteFrameEntity {
             arr[8] = 1.0.toFloat()
             transform.setValues(arr)
         }
-        obj.optString("clipPath").let { d ->
+        obj.optString("clipPath")?.let { d ->
             if (d.isNotEmpty()) {
                 maskPath = SVGAPathEntity(d)
             }

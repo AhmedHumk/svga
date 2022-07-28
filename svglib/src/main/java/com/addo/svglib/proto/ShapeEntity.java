@@ -2,8 +2,6 @@
 // Source file: svga.proto at 43:1
 package com.addo.svglib.proto;
 
-import androidx.annotation.NonNull;
-
 import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
@@ -133,7 +131,6 @@ public final class ShapeEntity extends Message<ShapeEntity, ShapeEntity.Builder>
     return result;
   }
 
-  @NonNull
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
@@ -315,7 +312,6 @@ public final class ShapeEntity extends Message<ShapeEntity, ShapeEntity.Builder>
       return result;
     }
 
-    @NonNull
     @Override
     public String toString() {
       StringBuilder builder = new StringBuilder();
@@ -365,12 +361,13 @@ public final class ShapeEntity extends Message<ShapeEntity, ShapeEntity.Builder>
         Builder builder = new Builder();
         long token = reader.beginMessage();
         for (int tag; (tag = reader.nextTag()) != -1;) {
-          if (tag == 1) {
-            builder.d(ProtoAdapter.STRING.decode(reader));
-          } else {
-            FieldEncoding fieldEncoding = reader.peekFieldEncoding();
-            Object value = fieldEncoding.rawProtoAdapter().decode(reader);
-            builder.addUnknownField(tag, fieldEncoding, value);
+          switch (tag) {
+            case 1: builder.d(ProtoAdapter.STRING.decode(reader)); break;
+            default: {
+              FieldEncoding fieldEncoding = reader.peekFieldEncoding();
+              Object value = fieldEncoding.rawProtoAdapter().decode(reader);
+              builder.addUnknownField(tag, fieldEncoding, value);
+            }
           }
         }
         reader.endMessage(token);
@@ -487,7 +484,6 @@ public final class ShapeEntity extends Message<ShapeEntity, ShapeEntity.Builder>
       return result;
     }
 
-    @NonNull
     @Override
     public String toString() {
       StringBuilder builder = new StringBuilder();
@@ -701,7 +697,6 @@ public final class ShapeEntity extends Message<ShapeEntity, ShapeEntity.Builder>
       return result;
     }
 
-    @NonNull
     @Override
     public String toString() {
       StringBuilder builder = new StringBuilder();
@@ -984,7 +979,6 @@ public final class ShapeEntity extends Message<ShapeEntity, ShapeEntity.Builder>
       return result;
     }
 
-    @NonNull
     @Override
     public String toString() {
       StringBuilder builder = new StringBuilder();
@@ -1186,7 +1180,6 @@ public final class ShapeEntity extends Message<ShapeEntity, ShapeEntity.Builder>
         return result;
       }
 
-      @NonNull
       @Override
       public String toString() {
         StringBuilder builder = new StringBuilder();

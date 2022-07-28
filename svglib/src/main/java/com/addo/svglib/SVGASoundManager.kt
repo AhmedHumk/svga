@@ -92,7 +92,7 @@ object SVGASoundManager {
         }
 
         if (entity == null) {
-            this.volume = volume
+            SVGASoundManager.volume = volume
             val iterator = soundCallBackMap.entries.iterator()
             while (iterator.hasNext()) {
                 val e = iterator.next()

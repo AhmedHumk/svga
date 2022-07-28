@@ -2,8 +2,6 @@
 // Source file: svga.proto at 19:1
 package com.addo.svglib.proto;
 
-import androidx.annotation.NonNull;
-
 import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
@@ -132,7 +130,6 @@ public final class AudioEntity extends Message<AudioEntity, AudioEntity.Builder>
     return result;
   }
 
-  @NonNull
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();

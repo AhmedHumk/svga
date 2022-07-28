@@ -8,8 +8,11 @@ import com.addo.svglib.utils.Pools
 import com.addo.svglib.utils.SVGAScaleInfo
 import kotlin.math.max
 
+/**
+ * Created by cuiminghui on 2017/3/29.
+ */
 
-internal open class SGVADrawer(val videoItem: SVGAVideoEntity) {
+open internal class SGVADrawer(val videoItem: SVGAVideoEntity) {
 
     val scaleInfo = SVGAScaleInfo()
 

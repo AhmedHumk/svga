@@ -8,9 +8,6 @@ import android.text.StaticLayout
 import android.text.TextPaint
 import java.net.HttpURLConnection
 import java.net.URL
-import java.util.concurrent.Executors
-import java.util.concurrent.ScheduledExecutorService
-import java.util.concurrent.TimeUnit
 
 /**
  * Created by cuiminghui on 2017/3/30.
@@ -49,7 +46,7 @@ class SVGADynamicEntity {
     }
 
     fun setDynamicImage(url: String, forKey: String) {
-        val backgroundExecutor: ScheduledExecutorService = Executors.newSingleThreadScheduledExecutor()
+        val handler = android.os.Handler()
         SVGAParser.threadPoolExecutor.execute {
             (URL(url).openConnection() as? HttpURLConnection)?.let {
                 try {
@@ -58,14 +55,9 @@ class SVGADynamicEntity {
                     it.connect()
                     it.inputStream.use { stream ->
                         BitmapFactory.decodeStream(stream)?.let {
-
-                            backgroundExecutor.schedule({
-                                setDynamicImage(it, forKey)
-                            }, 2, TimeUnit.SECONDS)
-
+                            handler.post { setDynamicImage(it, forKey) }
                         }
                     }
-                    backgroundExecutor.shutdown()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 } finally {
@@ -77,7 +69,6 @@ class SVGADynamicEntity {
                 }
             }
         }
-
     }
 
     fun setDynamicText(text: String, textPaint: TextPaint, forKey: String) {

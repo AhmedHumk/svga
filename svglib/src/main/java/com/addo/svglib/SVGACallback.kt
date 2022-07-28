@@ -1,6 +1,8 @@
 package com.addo.svglib
 
-
+/**
+ * Created by cuiminghui on 2017/3/30.
+ */
 interface SVGACallback {
 
     fun onPause()

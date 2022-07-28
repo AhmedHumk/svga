@@ -1,6 +1,7 @@
 package com.addo.svglib.entities
 
 import com.addo.svglib.proto.AudioEntity
+import java.io.FileInputStream
 
 internal class SVGAAudioEntity {
 
